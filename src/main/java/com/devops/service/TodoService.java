@@ -13,10 +13,9 @@ import java.util.UUID;
 @Service
 public class TodoService {
 
-    private List<Todo> todos;
+    private List<Todo> todos = new ArrayList<>();
 
     public List<Todo> getAll(){
-        this.todos = new ArrayList<>();
         Todo todo = new Todo();
         todo.setId(UUID.randomUUID());
         todo.setResponsable("Mounir");

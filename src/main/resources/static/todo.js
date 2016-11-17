@@ -6,12 +6,14 @@ $(document).ready(function() {
     });
 
      $('#create-button').click(function() {
+         var data = {};
+         data["texte"] = $('#todo-test').val();
          $.ajax({
             type: "POST",
             url: "/todos",
             contentType: 'application/json',
-            dataType: 'json',
-            data: createItemJson($('#todo-test').val()),
+            data : JSON.stringify(data),
+            dataType: 'json'
          }).then(function(data) {
             $('.todos').prepend(getLine(data[0]));
          });
@@ -28,7 +30,7 @@ $(document).ready(function() {
     }
 
     function createItemJson(texte) {
-        var itemJson = '{texte:"'+texte+'"}';
+        var itemJson = 'texte:"'+texte+'"';
         return JSON.stringify(itemJson);
     }
 
