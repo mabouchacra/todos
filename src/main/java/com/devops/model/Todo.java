@@ -1,25 +1,29 @@
 package com.devops.model;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * Created by SQLI on 16/11/16.
  */
 public class Todo implements Serializable {
 
-    private Long id;
+    private UUID id;
 
+    @NotNull
     private String texte;
 
     private String responsable;
 
+    @NotNull
     private StatusTodo status = StatusTodo.ACTIVE;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by SQLI on 16/11/16.
@@ -17,10 +18,15 @@ public class TodoService {
     public List<Todo> getAll(){
         this.todos = new ArrayList<>();
         Todo todo = new Todo();
-        todo.setId(Long.valueOf(1));
+        todo.setId(UUID.randomUUID());
         todo.setResponsable("Mounir");
         todo.setTexte("du texte");
         this.todos.add(todo);
         return this.todos;
+    }
+    public UUID addItem(Todo item){
+        item.setId(UUID.randomUUID());
+        this.todos.add(item);
+        return item.getId();
     }
 }
