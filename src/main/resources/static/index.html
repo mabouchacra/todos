@@ -10,9 +10,18 @@
 <body>
 <div id="create-form">
     <h1>Creation Todo</h1>
+
+    <div class="alert alert-success">
+        L'item a été créé
+    </div>
+
+    <div class="alert alert-danger">
+        Le texte ne peut pas être vide
+    </div>
+
     <div class="form-group">
-        <label for="todo-test">Text:</label>
-        <input type="text" class="form-control" id="todo-test">
+        <label for="todo-text">Text:</label>
+        <textarea class="form-control" maxlength="500" id="todo-text"></textarea>
     </div>
 
     <button type="button" id="create-button" class="btn btn-primary">Create</button>
