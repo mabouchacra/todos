@@ -2,6 +2,7 @@ package com.devops.model;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.UUID;
 
 /**
@@ -18,6 +19,16 @@ public class Todo implements Serializable {
 
     @NotNull
     private StatusTodo status = StatusTodo.ACTIVE;
+
+    public LocalTime getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(LocalTime dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    private LocalTime dateCreation= LocalTime.now();
 
     public UUID getId() {
         return id;
