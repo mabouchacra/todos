@@ -5,11 +5,24 @@
     <title>MyTodo</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="todo.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
+<div id="create-form">
+    <h1>Creation Todo</h1>
+    <div class="form-group">
+        <label for="todo-test">Text:</label>
+        <input type="text" class="form-control" id="todo-test">
+    </div>
+
+    <button type="button" id="create-button" class="btn btn-primary">Create</button>
+</div>
+
+
 <h1> La liste des items</h1>
-<ul class="todos">
-<li ></li>
+<ul class="todos list-group">
 </ul>
+
 </body>
+
 </html>
