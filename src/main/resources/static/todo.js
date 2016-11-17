@@ -9,6 +9,8 @@ $(document).ready(function() {
          $.ajax({
             type: "POST",
             url: "/todos",
+            contentType: 'application/json',
+            dataType: 'json',
             data: createItemJson($('#todo-test').val()),
          }).then(function(data) {
             $('.todos').prepend(getLine(data[0]));
@@ -26,12 +28,8 @@ $(document).ready(function() {
     }
 
     function createItemJson(texte) {
-        var itemJson = '[{"id":"null",' +
-            '"texte":"'+texte+'",'+
-            '"responsable":"Mounir",'+
-            '"status":"ACTIVE"}]'
-
-            return itemJson;
+        var itemJson = '{texte:"'+texte+'"}';
+        return JSON.stringify(itemJson);
     }
 
 });
