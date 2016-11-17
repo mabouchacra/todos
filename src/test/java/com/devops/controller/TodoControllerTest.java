@@ -17,9 +17,13 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -44,30 +48,7 @@ public class TodoControllerTest {
         mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
         this.mockMvc = MockMvcBuilders.standaloneSetup(todoController).setMessageConverters(mappingJackson2HttpMessageConverter).build();
     }
-
-    /**
-     * @throws Exception
-     */
-//    @Test
-//    public void should_add_item_to_list() throws Exception {
-//
-//        //GIVEN
-//        int tailleOriginal = 0;
-//        Todo item = new Todo();
-//        item.setId(Long.valueOf(1));
-//        item.setTexte("Un item de test");
-//        item.setResponsable("Malika");
-//
-//        //WHEN
-//        Mockito.doReturn(new ArrayList<Todo>()).when(todoService).getAll();
-//        List<Todo> listeInitiale = todoService.getAll();
-//        tailleOriginal = listeInitiale.size();
-//todoController.createItem(item);
-//        //THEN
-//        assertThat(listeInitiale.size()).isEqualTo(tailleOriginal+1);
-//
-//    }
-
+    
     /**
      * @throws Exception
      */
@@ -80,7 +61,6 @@ public class TodoControllerTest {
         item.setResponsable("Malika");
         String request = this.json(item);
 
-
         //WHEN
         ResultActions result = this.mockMvc.perform(post("/todos").contentType(MediaType.APPLICATION_JSON).content(request));
         Mockito.verify(todoService).addItem(Mockito.any(Todo.class));
@@ -91,7 +71,48 @@ public class TodoControllerTest {
 
     }
 
+    /**
+     * @throws Exception
+     */
+    @Test
+    public void should_get_all_items_empty_list() throws Exception {
 
+        //GIVEN
+
+        //WHEN
+
+        ResultActions result = this.mockMvc.perform(get("/todos").contentType(MediaType.APPLICATION_JSON));
+        Mockito.verify(todoService).getAll();
+        //THEN
+        result.andDo(print()).andExpect(status().isOk());
+         result.andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$").isEmpty());
+
+    }
+
+    /**
+     * @throws Exception
+     */
+    @Test
+    public void should_get_all_items() throws Exception {
+
+        //GIVEN
+        List<Todo> todos=new ArrayList<>();
+        Todo item = new Todo();
+        item.setTexte("Un item de test");
+        item.setResponsable("Malika");
+        todos.add(item);
+
+        //WHEN
+        Mockito.doReturn(todos).when(todoService).getAll();
+        ResultActions result = this.mockMvc.perform(get("/todos").contentType(MediaType.APPLICATION_JSON));
+        Mockito.verify(todoService).getAll();
+
+        //THEN
+        result.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isNotEmpty())
+                .andExpect(jsonPath("$[0].texte").value(todos.get(0).getTexte()));
+    }
 
     protected String json(Object o) throws IOException {
 

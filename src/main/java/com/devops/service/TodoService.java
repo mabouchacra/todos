@@ -16,11 +16,6 @@ public class TodoService {
     private List<Todo> todos = new ArrayList<>();
 
     public List<Todo> getAll(){
-        Todo todo = new Todo();
-        todo.setId(UUID.randomUUID());
-        todo.setResponsable("Mounir");
-        todo.setTexte("du texte");
-        this.todos.add(todo);
         return this.todos;
     }
     public UUID addItem(Todo item){
